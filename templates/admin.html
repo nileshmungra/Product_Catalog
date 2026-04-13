@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3">Admin Dashboard</h2>
+
+<div class="row">
+  <!-- Left side: product creation form -->
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Add New Product</h5>
+        <form action="/add" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <input type="text" name="name" class="form-control" placeholder="Product Name" required>
+          </div>
+          <div class="mb-3">
+            <input type="text" name="code" class="form-control" placeholder="Product Code" required>
+          </div>
+          <div class="mb-3">
+            <input type="file" name="image" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Add Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side: product list in table -->
+  <div class="col-md-8">
+    <input type="text" id="search" class="form-control mb-3" placeholder="Search product...">
+
+<table class="table table-hover align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th class="text-end">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td><img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" style="width:80px; height:auto; object-fit:contain;" class="zoomable"></td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.code }}</td>
+      <td class="text-end">
+        <button class="btn btn-sm btn-warning" data-bs-toggle="collapse" data-bs-target="#edit{{ product.id }}">✏️</button>
+        <a href="/delete/{{ product.id }}" class="btn btn-sm btn-danger">🗑️</a>
+      </td>
+    </tr>
+    <!-- collapsible edit row -->
+    <tr class="collapse" id="edit{{ product.id }}">
+      <td colspan="4">
+        <form action="/update/{{ product.id }}" method="post" enctype="multipart/form-data" class="row g-2">
+          <div class="col-md-4"><input type="text" name="name" value="{{ product.name }}" class="form-control"></div>
+          <div class="col-md-3"><input type="text" name="code" value="{{ product.code }}" class="form-control"></div>
+          <div class="col-md-3"><input type="file" name="image" class="form-control"></div>
+          <div class="col-md-2"><button type="submit" class="btn btn-success w-100">Save</button></div>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

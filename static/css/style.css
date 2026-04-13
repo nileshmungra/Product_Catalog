@@ -1,0 +1,44 @@
+body { font-family: Arial, sans-serif; }
+.grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.table img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: contain;   /* show full image */
+}
+
+mark {
+	background-color:#e7b20c;
+}
+
+.zoomable {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.zoomable:hover {
+  transform: scale(1.05);
+}
+.fullscreen {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.8);
+  display:flex; justify-content:center; align-items:center;
+  z-index:9999;
+}
+.fullscreen img {
+  max-width:90%; max-height:90%;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(255,255,255,0.5);
+}
